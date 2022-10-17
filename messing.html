@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Messing</title>
+  <style>
+    div {
+      word-wrap: break-word;
+    }
+
+    body {
+      height: 1000px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .header {
+      display: flex;
+      background-color: rgb(243, 98, 98);
+      flex-direction: row;
+      justify-content: center;
+
+    }
+
+    .grid {
+      margin-top: 60px;
+      height: 500px;
+      display: grid;
+      grid-template-columns: 270px 270px 1fr;
+      justify-content: center;
+    }
+
+    .blue {
+      background-color: rgb(99, 243, 243);
+    }
+
+    .red {
+      background-color: rgb(243, 98, 98);
+    }
+
+    .sidebar {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      top: 50px;
+      background-color: rgb(243, 98, 98);
+      padding: 10px 10px 10px 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <button>header</button>
+  </div>
+
+  <div id="test-culumn">experiments</div>
+  <div class="sidebar">sidebar</div>
+
+
+  </div>
+  <div class="grid">
+    <div class="blue">
+      <h1>To-Do App</h1>
+      <form id="ourForm">
+        <input id="ourField" type="text" autocomplete="off">
+        <button>Create item</button>
+      </form>
+      <h3>Need To do</h3>
+      <ul id="ourList" style="background-color: plum;">
+      </ul>
+    </div>
+    <div id="red-box" class="red">
+      <h1>List</h1>
+      <input id="textBox" type="text" autocomplete="off"> <button onclick="add()">Add</button>
+      <div>
+
+        <h3>Divs</h3>
+        <button onclick="preList()">Pre-list</button>
+
+      </div>
+      <div id="red-box-list"></div>
+    </div>
+
+    <div class="blue">section</div>
+  </div>
+  <script type="text/javascript">
+
+    let strawberryCount = 2;
+    let doubleMe = createMultiplier(2);
+    let tripleMe = createMultiplier(3);
+    let quadrupleMe = createMultiplier(4);
+    let myColors = ['red', 'orange', 'yellow'];
+    let listAlreadyMade = ['Coffee', 'Milk', 'Chicken'];
+
+
+
+    let myNumbers = [10, 500, 2000]
+    let doubledNumbers = myNumbers.map(x => x * 2)
+    console.log(doubledNumbers)
+
+
+    let ourForm = document.getElementById("ourForm")
+    let ourField = document.getElementById("ourField")
+    let ourList = document.getElementById("ourList")
+    let ourHTML = `<button onclick="deleteItem(this)"> Delete</button>`
+
+
+
+    ourForm.addEventListener("submit", (e) => {
+      e.preventDefault()
+      createItem(ourField.value)
+    })
+
+    function createItem(x) {
+      let ourHTML = `<li> ${x} <button onclick="deleteItem(this)"> Delete</button></li>`
+      ourList.insertAdjacentHTML("beforeend", ourHTML)
+      ourField.value = " "
+      ourField.focus()
+    }
+
+    function deleteItem(elementToDelete) {
+      elementToDelete.parentElement.remove()
+    }
+
+
+    function add() {
+      let textbox = document.getElementById('textBox');
+      let typedIn = textbox.value
+      let div = document.createElement('div');
+      div.innerText = typedIn;
+      let redBox = document.getElementById('red-box-list')
+      redBox.appendChild(div)
+      textbox.value = " "
+      textbox.focus()
+      div.insertAdjacentHTML("beforeend", ourHTML)
+
+    }
+
+    function preList() {
+      listAlreadyMade.forEach(carryOut)
+      function carryOut(list) {
+        let div = document.createElement('div')
+        div.innerText = list
+        let redBox = document.getElementById('red-box-list')
+        redBox.appendChild(div)
+        div.insertAdjacentHTML("beforeend", ourHTML)
+      }
+    }
+
+
+
+
+
+
+
+    /* let john = {
+      firstName: "John",
+      lastName: "Doe",
+      driveCar() {
+        console.log(this.firstName + " " + this.lastName + " is driving a car.")
+      }
+    }
+
+    john.driveCar();
+
+    function breathe() {
+      console.log(this.firstName + " " + this.lastName + " just inhaled and exhaled.")
+    }
+
+    breathe.call(john) */
+
+
+
+    function createMultiplier(multiplier) {
+      return function (x) {
+        return x * multiplier
+      }
+    };
+
+    document.write(quadrupleMe(100000));
+    console.log(tripleMe(100000000));
+
+
+
+    myColors.forEach(saySomethingNice)
+
+    function saySomethingNice(color) {
+      document.write('The color is ' + color + '<br>')
+    };
+
+
+
+    /*let myFavoriteNumbers = [1, 2, 3, 4]
+    let myWords = ["China", "fuck", "question mark"]
+    let myPets = [{name: "Faggot", species: "frog"}, {name: "obama", species: "black"}];
+
+
+    myWords.splice(2, 1);
+    console.log(myWords);
+
+    console.log(myPets[0].species); 
+    */
+
+
+
+
+  </script>
+</body>
+
+</html>
