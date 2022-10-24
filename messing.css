@@ -19,7 +19,7 @@ body {
   margin-top: 60px;
   height: 500px;
   display: grid;
-  grid-template-columns: 270px 270px 1fr;
+  grid-template-columns: 270px 270px 290px;
   justify-content: center;
 }
 

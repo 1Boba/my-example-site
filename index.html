@@ -9,14 +9,17 @@
   <link rel="stylesheet" href="messing.css" />
 </head>
 
-<body>
+<body>  
   <div class="header">
     <button>header</button>
   </div>
 
-  <a href="messing2.html">experiments</a>
-  <div class="sidebar">sidebar</div>
+  <a href="messing2.html">experiment1</a>
+  <div>
+    <a href="messing3.html">experiment2</a>
+  </div>
 
+  <div class="sidebar">sidebar</div>
 
   </div>
   <div class="grid">
@@ -27,6 +30,7 @@
         <button>Create item</button>
       </form>
       <h3>Need To do</h3>
+      <button onclick="clearButton1()"> Clear</button>
       <ul id="ourList" style="background-color: plum;">
       </ul>
     </div>
@@ -37,12 +41,17 @@
 
         <h3>Divs</h3>
         <button onclick="preList()">Pre-list</button>
+        <button onclick="clearButton2()"> Clear </button>
 
       </div>
       <div id="red-box-list"></div>
     </div>
 
-    <div class="blue">section</div>
+    <div class="blue">
+
+      <h1 id="ourHeader">Please enter name</h1>
+      <input id="ourInput" type="text" autocomplete="off">
+    </div>
   </div>
   <script type="text/javascript">
 
@@ -52,18 +61,27 @@
     let quadrupleMe = createMultiplier(4);
     let myColors = ['red', 'orange', 'yellow'];
     let listAlreadyMade = ['Coffee', 'Milk', 'Chicken'];
-
-
-
     let myNumbers = [10, 500, 2000]
     let doubledNumbers = myNumbers.map(x => x * 2)
     console.log(doubledNumbers)
-
-
     let ourForm = document.getElementById("ourForm")
     let ourField = document.getElementById("ourField")
     let ourList = document.getElementById("ourList")
     let ourHTML = `<button onclick="deleteItem(this)"> Delete</button>`
+    let redBox = document.getElementById('red-box-list')
+    const ourInput = document.getElementById('ourInput')
+    const ourHeader = document.getElementById('ourHeader')
+
+
+    ourInput.addEventListener("input", wasd)
+
+    function wasd() {
+      if (ourInput.value) {
+        ourHeader.innerText = ourInput.value + ' is cool'
+      } else {
+        ourHeader.innerText = 'Pleace enter text'
+      }
+    }
 
 
 
@@ -89,7 +107,6 @@
       let typedIn = textbox.value
       let div = document.createElement('div');
       div.innerText = typedIn;
-      let redBox = document.getElementById('red-box-list')
       redBox.appendChild(div)
       textbox.value = " "
       textbox.focus()
@@ -102,10 +119,17 @@
       function carryOut(list) {
         let div = document.createElement('div')
         div.innerText = list
-        let redBox = document.getElementById('red-box-list')
         redBox.appendChild(div)
         div.insertAdjacentHTML("beforeend", ourHTML)
       }
+    }
+
+    function clearButton1() {
+      ourList.innerHTML = ''
+    }
+
+    function clearButton2() {
+      redBox.innerHTML = ''
     }
 
 
@@ -121,13 +145,13 @@
         console.log(this.firstName + " " + this.lastName + " is driving a car.")
       }
     }
-
+ 
     john.driveCar();
-
+ 
     function breathe() {
       console.log(this.firstName + " " + this.lastName + " just inhaled and exhaled.")
     }
-
+ 
     breathe.call(john) */
 
 
