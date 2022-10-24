@@ -1,7 +1,14 @@
+let timer
+let deletePreviousTimout
+
 async function start() {
-  const response = await fetch("https://dog.ceo/api/breeds/list/all")
-  const data = await response.json()
-  createBreedList(data.message)
+  try {
+    const response = await fetch("https://dog.ceo/api/breeds/list/all")
+    const data = await response.json()
+    createBreedList(data.message)
+  } catch (e) {
+console.log("there was a problem fetching")
+  }
 }
 
 start()
@@ -27,27 +34,37 @@ async function loadByBreed(breed) {
 
 function createSlideshow(images) {
   let currentPostion = 0
-  document.getElementById('slideshow').innerHTML = `
+  clearInterval(timer)
+  clearTimeout(deletePreviousTimout)
+  if (images.length > 1) {
+    document.getElementById('slideshow').innerHTML = `
     <div class="slide" style="background-image: url('${images[0]}')"></div>
     <div class="slide" style="background-image: url('${images[1]}')"></div>
     `
-  currentPostion += 2
-  setInterval(nextSlide, 3000)
+    currentPostion += 2
+    if (images.length == 2) currentPostion = 0
+    timer = setInterval(nextSlide, 3000)
+  } else {
+    document.getElementById('slideshow').innerHTML = `
+    <div class="slide" style="background-image: url('${images[0]}')"></div>
+    <div class="slide"></div>
+    `
+  }
 
   function nextSlide() {
     document.getElementById("slideshow").insertAdjacentHTML("beforeend", `
         <div class="slide" style="background-image: url('${images[currentPostion]}')"><div>`)
-    setTimeout(aF, 1000)
+    deletePreviousTimout = setTimeout(aF, 1000)
     if (currentPostion + 1 >= images.length) {
       currentPostion = 0
     } else {
       currentPostion++
     }
   }
-  
+
   function aF() {
-      document.querySelector(".slide").remove()
-    }
+    document.querySelector(".slide").remove()
+  }
 }
 
 
